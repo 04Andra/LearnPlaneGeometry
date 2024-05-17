@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Final_Project</string>
+
+    <!--    titles-->
+    <string name="landing_text">Learn plane geometry for 7th grade</string>
+
+    <!--    buttons-->
+    <string name="learnButton">LEARN</string>
+
+    <!--    strings-->
+</resources>
