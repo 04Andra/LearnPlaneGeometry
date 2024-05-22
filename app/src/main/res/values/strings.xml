@@ -3,9 +3,20 @@
 
     <!--    titles-->
     <string name="landing_text">Learn plane geometry for 7th grade</string>
+    <string name="welcomeBack">Welcome back!</string>
+    <string name="welcomeText">Welcome!</string>
 
     <!--    buttons-->
     <string name="learnButton">LEARN</string>
+    <string name="loginUpperCaseButton">LOGIN</string>
+    <string name="loginLowerCaseButton">Login</string>
+    <string name="registerUpperCaseButton">REGISTER</string>
+    <string name="registerLowerCaseButton">Register</string>
 
     <!--    strings-->
+    <string name="enterEmailText">Enter your email...</string>
+    <string name="enterPasswordText">Enter your password...</string>
+    <string name="retypePasswordText">Retype your password...</string>
+    <string name="noAccountText">Don\'t have an account?</string>
+    <string name="haveAccountText">Already have an account?</string>
 </resources>

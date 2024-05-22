@@ -28,8 +28,6 @@
     <Button
         android:id="@+id/learnButton"
         style="@style/AppButton"
-        android:layout_width="140dp"
-        android:layout_height="55dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="372dp"
         android:text="@string/learnButton"
