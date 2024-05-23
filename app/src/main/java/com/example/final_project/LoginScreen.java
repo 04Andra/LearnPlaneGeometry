@@ -44,6 +44,7 @@ public class LoginScreen extends AppCompatActivity {
                 if (inputEmail.getText().toString().equals(user.getEmail())) {
                     Intent intent = new Intent(getApplicationContext(), ChooseFigure.class);
                     startActivity(intent);
+                    statement = false;
                     break;
                 } else {
                     statement = true;

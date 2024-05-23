@@ -20,5 +20,9 @@
         <item name="android:layout_height">55dp</item>
     </style>
 
+    <style name="Spinner" parent="Widget.AppCompat.Spinner.Underlined">
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
 
 </resources>
