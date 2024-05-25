@@ -58,7 +58,7 @@ public class DimensionScreen extends AppCompatActivity {
             AlertDialog.Builder builder1 = new AlertDialog.Builder(DimensionScreen.this);
 
             if (!circleContent.equals("") || !squareContent.equals("")) {
-                if (!dimension1.getText().toString().equals("")) {
+                if (!dimension1.getText().toString().trim().isEmpty()) {
 
 
                     try {
@@ -70,7 +70,7 @@ public class DimensionScreen extends AppCompatActivity {
                             alert11.show();
                         } else {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("dimension1", dimension1.getText().toString());
+                            editor.putString("dimension1", dimension1.getText().toString().trim());
                             editor.putString("lengthDimension", "");
                             editor.putString("widthDimension", "");
                             editor.apply();
@@ -93,8 +93,8 @@ public class DimensionScreen extends AppCompatActivity {
                     alert11.show();
                 }
             } else if (!lengthContent.equals("") && !widthContent.equals("")) {
-                if (!dimension1.getText().toString().equals("") &&
-                        !dimension2.getText().toString().equals("")) {
+                if (!dimension1.getText().toString().trim().isEmpty() &&
+                        !dimension2.getText().toString().trim().isEmpty()) {
                     try {
                         if (Float.parseFloat(String.valueOf(dimension1.getText())) == 0
                                 || Float.parseFloat(String.valueOf(dimension2.getText())) == 0) {
@@ -105,13 +105,14 @@ public class DimensionScreen extends AppCompatActivity {
                             alert11.show();
                         } else {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("dimension1", dimension1.getText().toString());
-                            editor.putString("lengthDimension", dimension1.getText().toString());
-                            editor.putString("widthDimension", dimension2.getText().toString());
+                            editor.putString("dimension1", "");
+                            editor.putString("lengthDimension", dimension1.getText().toString().trim());
+                            editor.putString("widthDimension", dimension2.getText().toString().trim());
                             editor.apply();
 
                             Intent intent = new Intent(getApplicationContext(), SolvingScreen.class);
                             startActivity(intent);
+
                         }
                     } catch (NumberFormatException e) {
                         builder1.setMessage("Input must be a valid number!");
