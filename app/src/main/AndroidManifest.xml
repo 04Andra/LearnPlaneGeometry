@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Final_Project"
         tools:targetApi="31">
         <activity
+            android:name=".SolvingScreen"
+            android:exported="false" />
+        <activity
             android:name=".DimensionScreen"
             android:exported="false" />
         <activity

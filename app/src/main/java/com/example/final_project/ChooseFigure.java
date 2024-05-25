@@ -1,8 +1,10 @@
 package com.example.final_project;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +49,9 @@ public class ChooseFigure extends AppCompatActivity {
         rectangleList.add(0, "Rectangle problem:");
         rectangleList.add("perimeter");
         rectangleList.add("area");
+
+        selected = circleList.get(0);
+        item = "";
 
         circleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -124,39 +129,87 @@ public class ChooseFigure extends AppCompatActivity {
 
 
         chooseFigureButton.setOnClickListener(v -> {
-            if(Objects.equals(selected, "Circle problem:")) {
 
-                Intent intent = new Intent(getApplicationContext(), DimensionScreen.class);
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(ChooseFigure.this);
+            SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("title", "Circle problem");
-                bundle.putString("content", "Enter radius dimension...");
+            if(Objects.equals(selected, circleList.get(0))) {
 
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if(!Objects.equals(item, "")) {
 
-            } else if(Objects.equals(selected, "Square problem:")) {
+                    Intent intent = new Intent(getApplicationContext(), DimensionScreen.class);
 
-                Intent intent = new Intent(getApplicationContext(), DimensionScreen.class);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("title", "Circle problem");
+                    editor.putString("circleContent", "Enter radius dimension...");
+                    editor.putString("squareContent", "");
+                    editor.putString("lengthContent", "");
+                    editor.putString("widthContent", "");
+                    editor.putString("formula", item);
+                    editor.apply();
 
-                Bundle bundle = new Bundle();
-                bundle.putString("title", "Square problem");
-                bundle.putString("content", "Enter side of the square...");
+                    startActivity(intent);
 
-                intent.putExtras(bundle);
-                startActivity(intent);
+                } else {
+                    builder1.setMessage("You need to choose a problem!");
+                    builder1.setCancelable(true);
+                    builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
 
-            } else if(Objects.equals(selected, "Rectangle problem:")) {
+            } else if(Objects.equals(selected, squareList.get(0))) {
 
-                Intent intent = new Intent(getApplicationContext(), DimensionScreen.class);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("title", "Rectangle problem");
-                bundle.putString("length", "Enter length...");
-                bundle.putString("width", "Enter width...");
+                if(!Objects.equals(item, "")) {
 
-                intent.putExtras(bundle);
-                startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), DimensionScreen.class);
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("title", "Square problem");
+                    editor.putString("circleContent", "");
+                    editor.putString("squareContent", "Enter side of the square...");
+                    editor.putString("lengthContent", "");
+                    editor.putString("widthContent", "");
+                    editor.putString("formula", item);
+                    editor.apply();
+
+                    startActivity(intent);
+
+                } else {
+                    builder1.setMessage("You need to choose a problem!");
+                    builder1.setCancelable(true);
+                    builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+
+
+            } else if(Objects.equals(selected, rectangleList.get(0))) {
+
+
+                if(!Objects.equals(item, "")) {
+
+                    Intent intent = new Intent(getApplicationContext(), DimensionScreen.class);
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("title", "Rectangle problem");
+                    editor.putString("circleContent", "");
+                    editor.putString("squareContent", "");
+                    editor.putString("lengthContent", "Enter length...");
+                    editor.putString("widthContent", "Enter width...");
+                    editor.putString("formula", item);
+                    editor.apply();
+
+                    startActivity(intent);
+
+                } else {
+                    builder1.setMessage("You need to choose a problem!");
+                    builder1.setCancelable(true);
+                    builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
 
             }
         });
