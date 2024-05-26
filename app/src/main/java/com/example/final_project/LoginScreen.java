@@ -40,19 +40,28 @@ public class LoginScreen extends AppCompatActivity {
             List<UserData> allUsers = databaseInstance.getAllUsers();
             boolean statement = false;
 
-            for (UserData user : allUsers) {
-                if (inputEmail.getText().toString().equals(user.getEmail())) {
-                    Intent intent = new Intent(getApplicationContext(), ChooseFigure.class);
-                    startActivity(intent);
-                    statement = false;
-                    break;
-                } else {
-                    statement = true;
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginScreen.this);
+
+            if(!inputEmail.getText().toString().isEmpty() && !inputPassword.getText().toString().isEmpty()) {
+                for (UserData user : allUsers) {
+                    if (inputEmail.getText().toString().equals(user.getEmail())) {
+                        Intent intent = new Intent(getApplicationContext(), ChooseFigure.class);
+                        startActivity(intent);
+                        statement = false;
+                        break;
+                    } else {
+                        statement = true;
+                    }
                 }
-            }
-            if(statement) {
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginScreen.this);
-                builder1.setMessage("Account does not exist!");
+                if (statement) {
+                    builder1.setMessage("Account does not exist!");
+                    builder1.setCancelable(true);
+                    builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+            } else {
+                builder1.setMessage("Empty fields!");
                 builder1.setCancelable(true);
                 builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
                 AlertDialog alert11 = builder1.create();

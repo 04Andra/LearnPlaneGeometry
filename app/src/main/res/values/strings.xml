@@ -23,4 +23,7 @@
     <string name="retypePasswordText">Retype your password...</string>
     <string name="noAccountText">Don\'t have an account?</string>
     <string name="haveAccountText">Already have an account?</string>
+    <string name="imageDescription">Solving screen image</string>
+    <string name="minSeekBar">100</string>
+    <string name="maxSeekbar">700</string>
 </resources>

@@ -44,45 +44,56 @@ public class RegisterScreen extends AppCompatActivity {
                 SQLiteDatabse databaseInstance = new SQLiteDatabse(RegisterScreen.this);
                 List<UserData> allUsers = databaseInstance.getAllUsers();
 
-                if (!inputPassword.getText().toString().equals(inputRePassword.getText().toString())) {
-                    contor = 1;
-                } else {
-                    for (UserData user : allUsers) {
-                        if (inputEmail.getText().toString().equals(user.getEmail())) {
-                            userExists = true;
-                            contor = 2;
-                            break;
-                        }
-                    }
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(RegisterScreen.this);
 
-                    if (!userExists) {
-                        try {
-                            userData = new UserData(-1, inputEmail.getText().toString());
-                            if (databaseInstance.addRecord(userData)) {
-                                contor = 3;
-                            } else {
-                                Toast.makeText(RegisterScreen.this,
-                                        "Error adding user to database",
-                                        Toast.LENGTH_SHORT).show();
+                if (!inputEmail.getText().toString().isEmpty()
+                        && !inputPassword.getText().toString().isEmpty()
+                        && !inputRePassword.getText().toString().isEmpty()) {
+                    if (!inputPassword.getText().toString().equals(inputRePassword.getText().toString())) {
+                        contor = 1;
+                    } else {
+                        for (UserData user : allUsers) {
+                            if (inputEmail.getText().toString().equals(user.getEmail())) {
+                                userExists = true;
+                                contor = 2;
+                                break;
                             }
-                        } catch (Exception e) {
-                            Toast.makeText(RegisterScreen.this, "Error creating user",
-                                    Toast.LENGTH_SHORT).show();
-                            userData = new UserData(-1, "error");
+                        }
+
+                        if (!userExists) {
+                            try {
+                                userData = new UserData(-1, inputEmail.getText().toString());
+                                if (databaseInstance.addRecord(userData)) {
+                                    contor = 3;
+                                } else {
+                                    Toast.makeText(RegisterScreen.this,
+                                            "Error adding user to database",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                Toast.makeText(RegisterScreen.this, "Error creating user",
+                                        Toast.LENGTH_SHORT).show();
+                                userData = new UserData(-1, "error");
+                            }
                         }
                     }
-                }
 
-                if (contor == 3) {
-                    Intent intent = new Intent(getApplicationContext(), ChooseFigure.class);
-                    startActivity(intent);
-                } else {
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(RegisterScreen.this);
-                    if (contor == 1) {
-                        builder1.setMessage("Passwords are not equal!");
-                    } else if (contor == 2) {
-                        builder1.setMessage("Account already exists!");
+                    if (contor == 3) {
+                        Intent intent = new Intent(getApplicationContext(), ChooseFigure.class);
+                        startActivity(intent);
+                    } else {
+                        if (contor == 1) {
+                            builder1.setMessage("Passwords are not equal!");
+                        } else if (contor == 2) {
+                            builder1.setMessage("Account already exists!");
+                        }
+                        builder1.setCancelable(true);
+                        builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
+                        AlertDialog alert11 = builder1.create();
+                        alert11.show();
                     }
+                } else {
+                    builder1.setMessage("Empty fields!");
                     builder1.setCancelable(true);
                     builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
                     AlertDialog alert11 = builder1.create();
