@@ -2,6 +2,9 @@ package com.example.final_project;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserData {
 
     public int id;
@@ -40,6 +43,7 @@ public class UserData {
     public String getPassword() {
         return this.password;
     }
+
 
     @NonNull
     @Override

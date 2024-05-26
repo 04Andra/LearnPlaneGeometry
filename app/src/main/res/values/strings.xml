@@ -16,6 +16,8 @@
     <string name="registerLowerCaseButton">Register</string>
     <string name="chooseFigureButton">CHOOSE</string>
     <string name="solveButton">SOLVE</string>
+    <string name="saveButton">SAVE</string>
+    <string name="historyButton">HISTORY</string>
 
     <!--    strings-->
     <string name="enterEmailText">Enter your email...</string>

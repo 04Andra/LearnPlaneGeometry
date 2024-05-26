@@ -3,9 +3,11 @@ package com.example.final_project;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -89,11 +91,18 @@ public class SolvingScreen extends AppCompatActivity {
                     dimension1 = sharedPreferences.getString("dimension1", "");
 
                 } else if (!lengthDimension.isEmpty() && !widthDimension.isEmpty()) {
+                    if (seekBar.getProgress() > Float.parseFloat(widthDimension)) {
+                        editor.putString("lengthDimension", "" + seekBar.getProgress());
+                        editor.apply();
 
-                    editor.putString("lengthDimension", "" + seekBar.getProgress());
-                    editor.apply();
-
-                    lengthDimension = sharedPreferences.getString("lengthDimension", "");
+                        lengthDimension = sharedPreferences.getString("lengthDimension", "");
+                    } else {
+                        builder1.setMessage("Length must be more or equal than width!");
+                        builder1.setCancelable(true);
+                        builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
+                        AlertDialog alert11 = builder1.create();
+                        alert11.show();
+                    }
                 }
 
                 if (!circleContent.equals("")) {
@@ -190,7 +199,6 @@ public class SolvingScreen extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar2, int progress, boolean fromUser) {
 
-
                     imageView.getLayoutParams().height = progress;
                     imageView.getLayoutParams().width = progress;
                     imageView.requestLayout();
@@ -199,7 +207,6 @@ public class SolvingScreen extends AppCompatActivity {
                     String text = "" + progress;
                     seekBarText2.setText(text);
                     seekBarText2.setX(seekBar2.getX() + val + (float) seekBar2.getThumbOffset() / 2);
-
             }
 
             @Override
@@ -211,12 +218,19 @@ public class SolvingScreen extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 if (!lengthDimension.isEmpty() && !widthDimension.isEmpty()) {
-
+                    if (seekBar.getProgress() < Float.parseFloat(lengthDimension)) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("widthDimension", "" + seekBar.getProgress());
                         editor.apply();
 
                         widthDimension = sharedPreferences.getString("widthDimension", "");
+                    } else {
+                        builder1.setMessage("Length must be more or equal than width!");
+                        builder1.setCancelable(true);
+                        builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
+                        AlertDialog alert11 = builder1.create();
+                        alert11.show();
+                    }
                 }
 
                 if (!circleContent.equals("")) {

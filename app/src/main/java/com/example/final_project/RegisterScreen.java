@@ -11,14 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RegisterScreen extends AppCompatActivity {
 
     EditText inputEmail, inputPassword, inputRePassword;
     Button loginButton, registerButton;
-//    @SuppressLint("UseSwitchCompatOrMaterialCode")
-//    Switch sw_activeUser;
+    List<String> history = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,8 @@ public class RegisterScreen extends AppCompatActivity {
                         contor = 1;
                     } else {
                         for (UserData user : allUsers) {
-                            if (inputEmail.getText().toString().equals(user.getEmail())) {
+                            if (inputEmail.getText().toString().equals(user.getEmail()) &&
+                                    inputPassword.getText().toString().equals(user.getPassword())) {
                                 userExists = true;
                                 contor = 2;
                                 break;
@@ -62,7 +64,8 @@ public class RegisterScreen extends AppCompatActivity {
 
                         if (!userExists) {
                             try {
-                                userData = new UserData(-1, inputEmail.getText().toString());
+                                userData = new UserData(-1, inputEmail.getText().toString(),
+                                        inputPassword.getText().toString());
                                 if (databaseInstance.addRecord(userData)) {
                                     contor = 3;
                                 } else {
@@ -73,7 +76,7 @@ public class RegisterScreen extends AppCompatActivity {
                             } catch (Exception e) {
                                 Toast.makeText(RegisterScreen.this, "Error creating user",
                                         Toast.LENGTH_SHORT).show();
-                                userData = new UserData(-1, "error");
+                                userData = new UserData(-1, "error", "error");
                             }
                         }
                     }

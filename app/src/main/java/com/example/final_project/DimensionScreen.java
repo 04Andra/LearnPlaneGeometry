@@ -95,27 +95,35 @@ public class DimensionScreen extends AppCompatActivity {
             } else if (!lengthContent.equals("") && !widthContent.equals("")) {
                 if (!dimension1.getText().toString().trim().isEmpty() &&
                         !dimension2.getText().toString().trim().isEmpty()) {
-                    try {
-                        if (Float.parseFloat(String.valueOf(dimension1.getText())) == 0
-                                || Float.parseFloat(String.valueOf(dimension2.getText())) == 0) {
-                            builder1.setMessage("Input mustn't be 0!");
+                    if(Float.parseFloat(dimension2.getText().toString().trim()) < Float.parseFloat(dimension1.getText().toString().trim())) {
+                        try {
+                            if (Float.parseFloat(String.valueOf(dimension1.getText())) == 0
+                                    || Float.parseFloat(String.valueOf(dimension2.getText())) == 0) {
+                                builder1.setMessage("Input mustn't be 0!");
+                                builder1.setCancelable(true);
+                                builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
+                            } else {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("dimension1", "");
+                                editor.putString("lengthDimension", dimension1.getText().toString().trim());
+                                editor.putString("widthDimension", dimension2.getText().toString().trim());
+                                editor.apply();
+
+                                Intent intent = new Intent(getApplicationContext(), SolvingScreen.class);
+                                startActivity(intent);
+
+                            }
+                        } catch (NumberFormatException e) {
+                            builder1.setMessage("Input must be a valid number!");
                             builder1.setCancelable(true);
                             builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
                             AlertDialog alert11 = builder1.create();
                             alert11.show();
-                        } else {
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("dimension1", "");
-                            editor.putString("lengthDimension", dimension1.getText().toString().trim());
-                            editor.putString("widthDimension", dimension2.getText().toString().trim());
-                            editor.apply();
-
-                            Intent intent = new Intent(getApplicationContext(), SolvingScreen.class);
-                            startActivity(intent);
-
                         }
-                    } catch (NumberFormatException e) {
-                        builder1.setMessage("Input must be a valid number!");
+                    } else {
+                        builder1.setMessage("Length must be more or equal than width!");
                         builder1.setCancelable(true);
                         builder1.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
                         AlertDialog alert11 = builder1.create();
