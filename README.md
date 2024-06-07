@@ -33,5 +33,6 @@
 <p>In this screen is the solution to the problem. After entering the desired dimensions to solve the problem, the application will solve and display the answer to the problem selected earlier, along with the specific formula.</p>
 <p>Also, when changing the seekBar below, the user can change the problem data with a value between 100 and 700, which will be changed later in the formula above. Also with the help of this seekBar, when moving it, the size of the geometric figure will also change, which can take values ​​between 100 and 700.</p>
    <img src ="./readme_photos/solving_screen.png" width = "200" height ="400"/>
+   <img src ="./readme_photos/solving_screen2.png" width = "200" height ="400"/>
   <br>
 </ul>
